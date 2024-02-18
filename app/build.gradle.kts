@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mobiledevpro.apptemplate.compose"
+    namespace = "com.mobiledevpro.zoomable.image"
     compileSdk = libs.versions.sdk.compile.get().toInt()
 
 
@@ -44,12 +44,10 @@ android {
     productFlavors {
         create("production") {
             dimension = "default"
-            applicationIdSuffix = ".closetalk"
         }
 
         create("dev") {
             dimension = "default"
-            applicationIdSuffix = ".apptemplate.compose"
         }
     }
 

@@ -27,12 +27,10 @@ import com.mobiledevpro.ui.component.ScreenBackground
 
 @Composable
 fun HomeScreen(
-    nestedNavGraph: @Composable () -> Unit,
-    bottomBar: @Composable () -> Unit
+    nestedNavGraph: @Composable () -> Unit
 ) {
 
     Scaffold(
-        bottomBar = bottomBar,
         contentWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)
     ) { paddingValues ->
         ScreenBackground(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 | Dmitri Chernysh | https://mobile-dev.pro
+ * Copyright 2023 | Dmitri Chernysh | https://mobile-dev.pro
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +15,22 @@
  * limitations under the License.
  *
  */
-package com.mobiledevpro.app.ui
+package com.mobiledevpro.navigation.graph
 
-import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mobiledevpro.image.viewer.view.ImageViewerScreen
 import com.mobiledevpro.navigation.Screen
-import com.mobiledevpro.navigation.host.RootNavHost
 
 
-@Composable
-fun MainApp() {
-    val navController = rememberNavController()
+fun NavGraphBuilder.imageViewerNavGraph() {
+    composable(
+        route = Screen.ImageViewer.route
+    ) {
+        val navController = rememberNavController()
 
-    RootNavHost(
-        navController = navController,
-        startDestination = Screen.Home
-    )
-
+        ImageViewerScreen()
+    }
 }
+

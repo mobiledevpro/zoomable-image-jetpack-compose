@@ -17,36 +17,47 @@
  */
 package com.mobiledevpro.navigation.graph
 
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.mobiledevpro.home.view.HomeScreen
+import com.mobiledevpro.home.view.HomeViewModel
 import com.mobiledevpro.navigation.Screen
-import com.mobiledevpro.navigation.chatListScreen
-import com.mobiledevpro.navigation.peopleNavGraph
-import com.mobiledevpro.navigation.profileScreen
+import com.mobiledevpro.navigation.host.HomeNavHost
 
-/**
- * Nested navigation graph for Home screen
- *
- * Created on Jan 24, 2023.
- *
- */
-@Composable
-fun HomeNavGraph(
-    modifier: Modifier = Modifier,
-    navController: NavHostController,
-    onNavigateToRoot: (Screen) -> Unit
-) {
-    NavHost(
-        navController = navController,
-        startDestination = Screen.ChatList.route,
-        modifier = modifier,
+
+fun NavGraphBuilder.homeNavGraph(onNavigateToRoot: (Screen) -> Unit) {
+    composable(
+        route = Screen.Home.route
     ) {
 
-        chatListScreen()
-        peopleNavGraph()
-        profileScreen(onNavigateTo = onNavigateToRoot)
+        //NavController for nested graph
+        //It will not work for root graph
+        val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+        val nestedNavGraph: @Composable () -> Unit = {
+            Log.d("navigation", "homeNavGraph:nestedNavGraph")
+            HomeNavHost(
+                navController = navController,
+                onNavigateToRoot = onNavigateToRoot
+            )
+        }
+
+        val viewModel: HomeViewModel = viewModel()
+
+        HomeScreen(
+            nestedNavGraph = nestedNavGraph
+        )
 
     }
+
 }
+
+
+

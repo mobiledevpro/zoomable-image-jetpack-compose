@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 | Dmitri Chernysh | https://mobile-dev.pro
+ * Copyright 2023 | Dmitri Chernysh | https://mobile-dev.pro
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +15,27 @@
  * limitations under the License.
  *
  */
-package com.mobiledevpro.app.ui
+package com.mobiledevpro.image.viewer.view
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
-import com.mobiledevpro.navigation.Screen
-import com.mobiledevpro.navigation.host.RootNavHost
+import androidx.compose.ui.Modifier
+import org.w3c.dom.Text
 
+/**
+ * Demo screen for zoomable image
+ *
+ * Created on Feb 18, 2024.
+ *
+ */
 
 @Composable
-fun MainApp() {
-    val navController = rememberNavController()
+fun ImageViewerScreen() {
 
-    RootNavHost(
-        navController = navController,
-        startDestination = Screen.Home
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(text = "Image Viewer")
+    }
 
 }
