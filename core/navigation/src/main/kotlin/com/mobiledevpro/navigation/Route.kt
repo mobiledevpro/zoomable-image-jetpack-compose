@@ -17,28 +17,11 @@
  */
 package com.mobiledevpro.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.mobiledevpro.people.profile.view.args.PeopleProfileArgs
 
-const val navigationRouteOnBoarding = "on_boarding"
-const val navigationRouteOnBoardingFirst = "on_boarding_first"
-const val navigationRouteOnBoardingSecond = "on_boarding_second"
-const val navigationRouteOnBoardingThird = "on_boarding_third"
 
 const val navigationRouteHome = "home"
-const val navigationRouteChatList = "chat_list"
-const val navigationRouteProfile = "profile"
-
-const val navigationRoutePeople = "people"
-const val navigationRoutePeopleList = "people_list"
-const val navigationRoutePeopleProfile =
-    "people_profile/{${PeopleProfileArgs.PEOPLE_PROFILE_ID_ARG}}"
-
-const val navigationRouteSubscription = "subscription"
+const val navigationRouteImageViewer = "image_viewer"
 
 sealed class Screen(
     val route: String,
@@ -55,30 +38,9 @@ sealed class Screen(
         routePath = path
     }
 
-    object OnBoarding : Screen(navigationRouteOnBoarding)
-    object OnBoardingFirst : Screen(navigationRouteOnBoardingFirst)
-    object OnBoardingSecond : Screen(navigationRouteOnBoardingSecond)
-    object OnBoardingThird : Screen(navigationRouteOnBoardingThird)
+    data object Home : Screen(navigationRouteHome)
 
-    object Home : Screen(navigationRouteHome)
-
-    // 3 tabs of Bottom navigation
-    object ChatList :
-        Screen(route = navigationRouteChatList, title = "Chats", icon = Icons.Rounded.Home)
-
-    object People : Screen(
-        route = navigationRoutePeople,
-        restoreState = false,
-        title = "People",
-        icon = Icons.Rounded.Person,
-    )
-
-    object Profile :
-        Screen(route = navigationRouteProfile, title = "Profile", icon = Icons.Rounded.Settings)
-
-    object Subscription : Screen(navigationRouteSubscription)
-
-    object PeopleList : Screen(navigationRoutePeopleList)
-    object PeopleProfile : Screen(navigationRoutePeopleProfile)
+    data object ImageViewer :
+        Screen(route = navigationRouteImageViewer)
 
 }

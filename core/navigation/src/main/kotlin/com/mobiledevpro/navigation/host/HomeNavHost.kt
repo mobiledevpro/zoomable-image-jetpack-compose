@@ -15,21 +15,34 @@
  * limitations under the License.
  *
  */
-package com.mobiledevpro.app.ui
+package com.mobiledevpro.navigation.host
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import com.mobiledevpro.navigation.Screen
-import com.mobiledevpro.navigation.host.RootNavHost
+import com.mobiledevpro.navigation.graph.imageViewerNavGraph
 
-
+/**
+ * Nested navigation graph for Home screen
+ *
+ * Created on Jan 24, 2023.
+ *
+ */
 @Composable
-fun MainApp() {
-    val navController = rememberNavController()
-
-    RootNavHost(
+fun HomeNavHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    onNavigateToRoot: (Screen) -> Unit
+) {
+    NavHost(
         navController = navController,
-        startDestination = Screen.Home
-    )
+        startDestination = Screen.ImageViewer.route,
+        modifier = modifier,
+    ) {
 
+        imageViewerNavGraph()
+
+    }
 }
