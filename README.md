@@ -4,7 +4,7 @@ Based on [App Template](https://github.com/mobiledevpro/Jetpack-Compose-ChatApp-
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/mobiledevpro/zoomable-image-jetpack-compose?color=red&style=flat-square)
 
-Demo - tap to watch: 
+Demo video - tap to watch: 
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/mqjVI5_L9XA/0.jpg)](https://www.youtube.com/watch?v=mqjVI5_L9XA)
 
