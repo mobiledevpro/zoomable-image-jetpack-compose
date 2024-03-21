@@ -107,11 +107,8 @@ fun ImageViewerScreen() {
 fun BoxScope.UpperImage() {
     var imageScale by remember { mutableFloatStateOf(1f) }
     var imageOffset by remember { mutableStateOf(Offset.Zero) }
+    var rotation by remember { mutableFloatStateOf(0f) }
 
-    val transformState = rememberTransformableState { zoomChange, panChange, rotationChange ->
-        imageScale = (imageScale * zoomChange).coerceIn(1f, 5f)
-        imageOffset += panChange
-    }
 
     val model = ImageRequest.Builder(LocalContext.current)
         .data("https://c4.wallpaperflare.com/wallpaper/83/500/871/waterfall-high-resolution-desktop-wallpaper-preview.jpg")
@@ -121,23 +118,26 @@ fun BoxScope.UpperImage() {
         .diskCachePolicy(CachePolicy.DISABLED)
         .build()
 
+    val transformState = rememberTransformableState { zoomChange, panChange, rotationChange ->
+        imageScale = (imageScale * zoomChange).coerceIn(0.5f, 5f)
+        imageOffset += panChange
+        rotation += rotationChange
+    }
+
     AsyncImage(
         model = model,
         contentDescription = "",
         contentScale = ContentScale.FillHeight,
-        onState = { state ->
-            Log.d("UI", "AsyncImage.state: $state")
-        },
         modifier = Modifier
             .align(Alignment.Center)
             .fillMaxWidth()
             .scale(imageScale)
             .graphicsLayer {
-                Log.d("UI", "ImageViewerScreen: graphicsLayer: scale $scaleX $scaleY")
                 scaleX = imageScale
                 scaleY = imageScale
                 translationX = imageOffset.x
                 translationY = imageOffset.y
+                rotationZ = rotation
             }
             .transformable(transformState)
             .pointerInput(Unit) {
@@ -145,6 +145,7 @@ fun BoxScope.UpperImage() {
                     Log.d("UI", "ImageViewerScreen: on double tap")
                     imageScale = 1f
                     imageOffset = Offset.Zero
+                    rotation = 0F
                 })
             }
     )
@@ -154,10 +155,12 @@ fun BoxScope.UpperImage() {
 fun BoxScope.LowerImage() {
     var imageScale by remember { mutableFloatStateOf(1f) }
     var imageOffset by remember { mutableStateOf(Offset.Zero) }
+    var rotation by remember { mutableFloatStateOf(0f) }
 
     val transformState = rememberTransformableState { zoomChange, panChange, rotationChange ->
-        imageScale = (imageScale * zoomChange).coerceIn(1f, 5f)
+        imageScale = (imageScale * zoomChange).coerceIn(0.5f, 5f)
         imageOffset += panChange
+        rotation += rotationChange
     }
 
     val model = ImageRequest.Builder(LocalContext.current)
@@ -180,11 +183,11 @@ fun BoxScope.LowerImage() {
             .fillMaxWidth()
             .scale(imageScale)
             .graphicsLayer {
-                Log.d("UI", "ImageViewerScreen: graphicsLayer: scale $scaleX $scaleY")
                 scaleX = imageScale
                 scaleY = imageScale
                 translationX = imageOffset.x
                 translationY = imageOffset.y
+                rotationZ = rotation
             }
             .transformable(transformState)
             .pointerInput(Unit) {
@@ -192,6 +195,7 @@ fun BoxScope.LowerImage() {
                     Log.d("UI", "ImageViewerScreen: on double tap")
                     imageScale = 1f
                     imageOffset = Offset.Zero
+                    rotation = 0F
                 })
             }
     )
